@@ -4,10 +4,6 @@
   font-size: 13px;
 }
 
-:host(:hover) #controls {
-  display: inline;
-}
-
 #controller {
   position: absolute;
   top: 0;
@@ -35,6 +31,10 @@
 
 #controls {
   display: none;
+}
+
+#controller:hover #controls {
+  display: inline;
 }
 
 #controller.dragging {

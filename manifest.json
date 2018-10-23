@@ -1,40 +1,58 @@
 {
-  "name": "Video Speed Controller",
-  "short_name": "videospeed",
-  "version": "0.5.2",
-  "manifest_version": 2,
-  "description": "Speed up, slow down, advance and rewind any HTML5 video with quick shortcuts.",
-  "homepage_url": "https://github.com/igrigorik/videospeed",
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  },
-  "permissions": [ "activeTab", "storage" ],
-  "options_page": "options.html",
-  "browser_action": {
-    "default_icon": {
-      "19": "icons/icon19.png",
-      "38": "icons/icon38.png",
-      "48": "icons/icon48.png"
+    "author": "igrigorik",
+    "browser_action": {
+        "default_icon": {
+            "19": "icons/icon19.png",
+            "38": "icons/icon38.png",
+            "48": "icons/icon48.png"
+        },
+        "default_popup": "popup.html"
     },
-    "default_popup": "popup.html"
-  },
-  "content_scripts": [{
-      "all_frames": true,
-      "matches": [ "http://*/*", "https://*/*", "file:///*" ],
-      "exclude_matches": [
-        "https://plus.google.com/hangouts/*",
-        "https://hangouts.google.com/*",
-        "https://meet.google.com/*",
-        "https://teamtreehouse.com/*",
-        "http://www.hitbox.tv/*"
-      ],
-      "css": [ "inject.css" ],
-      "js":  [ "inject.js" ]
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "matches": [
+                "http://*/*",
+                "https://*/*",
+                "file:///*"
+            ],
+            "exclude_matches": [
+                "https://plus.google.com/hangouts/*",
+                "https://hangouts.google.com/*",
+                "https://meet.google.com/*",
+                "https://teamtreehouse.com/*",
+                "http://www.hitbox.tv/*"
+            ],
+            "css": [
+                "inject.css"
+            ],
+            "js": [
+                "inject.js"
+            ]
+        }
+    ],
+    "description": "Speed up, slow down, advance and rewind any HTML5 video with quick shortcuts.",
+    "homepage_url": "https://github.com/igrigorik/videospeed",
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "manifest_version": 2,
+    "name": "Video Speed Controller",
+    "options_page": "options.html",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "short_name": "videospeed",
+    "version": "0.5.2",
+    "web_accessible_resources": [
+        "inject.css",
+        "shadow.css"
+    ],
+    "-ms-preload": {
+        "backgroundScript": "backgroundScriptsAPIBridge.js",
+        "contentScript": "contentScriptsAPIBridge.js"
     }
-  ],
-  "web_accessible_resources": [
-    "inject.css", "shadow.css"
-  ]
 }

@@ -106,15 +106,15 @@ chrome.runtime.sendMessage({}, function(response) {
       var wrapper = document.createElement('div');
       wrapper.classList.add('vsc-controller');
       wrapper.dataset['vscid'] = this.id;
-      wrapper.addEventListener('dblclick', prevent, true);
-      wrapper.addEventListener('mousedown', prevent, true);
-      wrapper.addEventListener('click', prevent, true);
+      wrapper.addEventListener('dblclick', prevent, false);
+      wrapper.addEventListener('mousedown', prevent, false);
+      wrapper.addEventListener('click', prevent, false);
 
       if (tc.settings.startHidden) {
         wrapper.classList.add('vsc-hidden');
       }
 
-      var shadow = wrapper.createShadowRoot();
+      var shadow = wrapper;
       var shadowTemplate = `
         <style>
           @import "${chrome.runtime.getURL('shadow.css')}";
@@ -301,8 +301,6 @@ chrome.runtime.sendMessage({}, function(response) {
       }
 
       var observer = new MutationObserver(function(mutations) {
-        // Process the DOM nodes lazily
-        requestIdleCallback(_ => {
           mutations.forEach(function(mutation) {
             forEach.call(mutation.addedNodes, function(node) {
               if (typeof node === "function")
@@ -315,7 +313,6 @@ chrome.runtime.sendMessage({}, function(response) {
               checkForVideo(node, node.parentNode || mutation.target, false);
             });
           });
-        }, {timeout: 1000});
       });
       observer.observe(document, { childList: true, subtree: true });
 
@@ -393,7 +390,7 @@ chrome.runtime.sendMessage({}, function(response) {
   }
 
   function handleDrag(video, controller, e) {
-    const shadowController = controller.shadowRoot.querySelector('#controller');
+    const shadowController = controller.querySelector('#controller');
 
     // Find nearest parent of same size as video parent.
     var parentElement = controller.parentElement;
